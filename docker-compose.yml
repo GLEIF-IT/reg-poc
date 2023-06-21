@@ -1,5 +1,8 @@
 version: '3.8'
 
+networks:
+  reg:
+
 services:
   witnesses:
     build:
@@ -12,6 +15,8 @@ services:
       - 5642:5642
       - 5643:5643
       - 5644:5644
+    networks:
+      - reg
 
   vlei-server:
     build:
@@ -19,6 +24,8 @@ services:
       dockerfile: vlei.dockerfile
     ports:
       - 7723:7723
+    networks:
+      - reg
 
   keria:
     build:
@@ -30,6 +37,8 @@ services:
       - 3903:3903
     depends_on:
       - witnesses
+    networks:
+      - reg
 
   webapp:
     build:
@@ -37,6 +46,8 @@ services:
       dockerfile: webapp.dockerfile
     ports:
       - 5173:5173
+    networks:
+      - reg
 
   verifier:
     build:
@@ -44,6 +55,8 @@ services:
       dockerfile: verifier.dockerfile
     depends_on:
       - witnesses
+    networks:
+      - reg
 
   server:
     build:
@@ -59,6 +72,8 @@ services:
       - VERIFIER_REPORTS=http://verifier:7676/reports/
     depends_on:
       - redis
+    networks:
+      - reg
 
   celery:
     build:
@@ -70,6 +85,10 @@ services:
     depends_on:
       - server
       - redis
+    networks:
+      - reg
 
   redis:
     image: redis:7-alpine
+    networks:
+      - reg

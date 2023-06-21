@@ -25,6 +25,8 @@ WORKDIR /keripy
 RUN pip install -e .
 WORKDIR /keria
 
+COPY ./config/keria/scripts/* ./scripts
+
 EXPOSE 3901
 EXPOSE 3902
 EXPOSE 3903

@@ -9,6 +9,8 @@ RUN git clone https://github.com/WebOfTrust/vLEI
 WORKDIR /usr/local/var/vLEI
 RUN pip install -r requirements.txt
 
+COPY ./config/vLEI/samples/oobis* /usr/local/var/vLEI/samples/oobis/
+
 EXPOSE 7723
 
 ENTRYPOINT [ "vLEI-server", "-s", "./schema/acdc", "-c" , "./samples/acdc/", "-o", "./samples/oobis/" ]
