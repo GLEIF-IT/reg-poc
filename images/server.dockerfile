@@ -6,7 +6,9 @@ RUN apk add git
 SHELL ["/bin/bash", "-c"]
 
 WORKDIR /server
-RUN git checkout -b development https://github.com/GLEIF-IT/reg-poc-server.git .
+RUN git clone -b development https://github.com/GLEIF-IT/reg-poc-server.git .
+
+RUN pip install -r requirements.txt
 
 WORKDIR /server/src/regps
 

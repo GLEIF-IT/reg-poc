@@ -5,16 +5,29 @@ services:
     build:
       context: ./images
       dockerfile: witnesses.dockerfile
+    ports:
+      - 5632:5632
+      - 5633:5633
+      - 5634:5634
+      - 5642:5642
+      - 5643:5643
+      - 5644:5644
 
   vlei-server:
     build:
       context: ./images
       dockerfile: vlei.dockerfile
+    ports:
+      - 7723:7723
 
   keria:
     build:
       context: ./images
       dockerfile: keria.dockerfile
+    ports:
+      - 3901:3901
+      - 3902:3902
+      - 3903:3903
     depends_on:
       - witnesses
 
@@ -22,11 +35,10 @@ services:
     build:
       context: ./images
       dockerfile: server.dockerfile
-
-  webapp:
-    build:
-      context: ./images
-      dockerfile: webapp.dockerfile
+  # # webapp:
+  # #   build:
+  # #     context: ./images
+  # #     dockerfile: webapp.dockerfile
 
   verifier:
     build:
