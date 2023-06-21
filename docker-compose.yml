@@ -31,10 +31,12 @@ services:
     depends_on:
       - witnesses
 
-  # # webapp:
-  # #   build:
-  # #     context: ./images
-  # #     dockerfile: webapp.dockerfile
+  webapp:
+    build:
+      context: ./images
+      dockerfile: webapp.dockerfile
+    ports:
+      - 5173:5173
 
   verifier:
     build:
