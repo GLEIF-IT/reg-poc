@@ -9,5 +9,6 @@ EXPOSE 5643
 EXPOSE 5644
 
 RUN mkdir -p /usr/local/var/keri
+COPY ./data/keri/* /usr/local/var/keri
 
 ENTRYPOINT ["kli", "witness", "demo"]

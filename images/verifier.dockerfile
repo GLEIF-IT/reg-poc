@@ -18,9 +18,12 @@ WORKDIR /keripy
 RUN git clone -b development https://github.com/WebOfTrust/keripy.git .
 RUN source "$HOME/.cargo/env" && pip install -r requirements.txt
 
+RUN mkdir -p /usr/local/var/keri
+
 WORKDIR /verifier
 RUN git checkout https://github.com/GLEIF-IT/reg-poc-verifier.git .
-RUN kli init --name vdb --nopasscode --config-dir scripts --config-file verifier-config.json
+RUN mkdir -p /usr/local/var/keri
+COPY ./data/keri/* /usr/local/var/keri
 
 ENTRYPOINT ["verifier", "server", "start", "--config-dir", "scripts", "--config-file", "verifier-config.json"]
 
