@@ -12,4 +12,4 @@ EXPOSE 5173
 
 RUN yarn install
 
-ENTRYPOINT ["yarn", "run", "dev", "--host"]
+ENTRYPOINT ["yarn", "run", "compose", "--host"]

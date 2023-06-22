@@ -18,7 +18,7 @@ RUN git clone -b development https://github.com/WebOfTrust/keripy.git .
 RUN source "$HOME/.cargo/env" && pip install -r requirements.txt
 
 RUN mkdir -p /usr/local/var/keri
-COPY ./data/keri/* /usr/local/var/keri
+COPY ./data/keri/* /usr/local/var/keri/
 
 WORKDIR /keripy
 
