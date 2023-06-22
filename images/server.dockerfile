@@ -13,4 +13,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 WORKDIR /server/src/regps
 
-ENTRYPOINT [ "gunicorn", "-b", "0.0.0.0:8000", "app:app", "--reload" ]
+ENTRYPOINT [ "gunicorn", "-b", "0.0.0.0:8000", "app:app"]
