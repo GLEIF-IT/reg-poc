@@ -20,7 +20,8 @@ RUN source "$HOME/.cargo/env" && pip install -r requirements.txt
 # RUN mkdir -p /usr/local/var/keri
 # COPY ./data/keri/* /usr/local/var/keri/
 
-# WORKDIR /keripy
+RUN mkdir -p /keripy/scripts/keri/cf/main
+COPY ./config/witnesses/*.json /keripy/scripts/keri/cf/main/
 
 EXPOSE 5632
 EXPOSE 5633

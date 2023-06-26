@@ -50,42 +50,45 @@ services:
     volumes:
       - './data/keri:/usr/local/var/keri/'
 
-  # webapp:
-  #   build:
-  #     context: ./images
-  #     dockerfile: webapp.dockerfile
-  #   ports:
-  #     - 5173:5173
-  #   networks:
-  #     - reg
+  webapp:
+    build:
+      context: ./images
+      dockerfile: webapp.dockerfile
+    ports:
+      - 5173:5173
+    networks:
+      reg:
+        ipv4_address: 172.20.0.40
 
-  # verifier:
-  #   build:
-  #     context: ./images
-  #     dockerfile: verifier.dockerfile
-  #   depends_on:
-  #     - witnesses
-  #   networks:
-  #     - reg
-  #   volumes:
-  #     - './data/keri:/usr/local/var/keri'
+  verifier:
+    build:
+      context: ./images
+      dockerfile: verifier.dockerfile
+    depends_on:
+      - witnesses
+    networks:
+      reg:
+        ipv4_address: 172.20.0.50
+    volumes:
+      - './data/keri:/usr/local/var/keri'
 
-  # server:
-  #   build:
-  #     context: ./images
-  #     dockerfile: server.dockerfile
-  #   ports:
-  #     - 8000:8000
-  #   environment:
-  #     - CELERY_BROKER=redis://redis:6379/0
-  #     - CELERY_BACKEND=redis://redis:6379/0
-  #     - VERIFIER_AUTHORIZATIONS=http://verifier:7676/authorizations/
-  #     - VERIFIER_PRESENTATIONS=http://verifier:7676/presentations/
-  #     - VERIFIER_REPORTS=http://verifier:7676/reports/
-  #   depends_on:
-  #     - redis
-  #   networks:
-  #     - reg
+  server:
+    build:
+      context: ./images
+      dockerfile: server.dockerfile
+    ports:
+      - 8000:8000
+    environment:
+      # - CELERY_BROKER=redis://redis:6379/0
+      # - CELERY_BACKEND=redis://redis:6379/0
+      - VERIFIER_AUTHORIZATIONS=http://172.20.0.50:7676/authorizations/
+      - VERIFIER_PRESENTATIONS=http://172.20.0.50:7676/presentations/
+      - VERIFIER_REPORTS=http://172.20.0.50:7676/reports/
+    # depends_on:
+    #   - redis
+    networks:
+      reg:
+        ipv4_address: 172.20.0.60
 
   # celery:
   #   build:
@@ -98,9 +101,11 @@ services:
   #     - server
   #     - redis
   #   networks:
-  #     - reg
+  #     reg:
+  #       ipv4_address: 172.20.0.70
 
   # redis:
   #   image: redis:7-alpine
   #   networks:
-  #     - reg
+  #     reg:
+  #       ipv4_address: 172.20.0.80
