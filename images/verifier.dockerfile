@@ -26,7 +26,4 @@ RUN pip install -r requirements.txt
 RUN cd ../keripy && pip install -e .
 COPY ./config/verifier/scripts/* ./scripts
 
-RUN mkdir -p /usr/local/var/keri
-COPY ./data/keri/* /usr/local/var/keri/
-
 ENTRYPOINT ["verifier", "server", "start", "--config-dir", "scripts", "--config-file", "verifier-config.json"]
