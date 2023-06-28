@@ -30,6 +30,6 @@ RUN pip install -e .
 WORKDIR /verifier
 RUN mkdir -p /verifier/scripts/keri/cf/
 
-COPY ./config/verifier/verifier-config.json /verifier/scripts/keri/cf/
+COPY ./config/verifier/verifier-config.json /verifier/scripts/keri/cf/verifier-config.json
 
 ENTRYPOINT ["verifier", "server", "start", "--config-dir", "scripts", "--config-file", "verifier-config.json"]
