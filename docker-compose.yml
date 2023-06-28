@@ -81,31 +81,31 @@ services:
     ports:
       - 8000:8000
     environment:
-      - CELERY_BROKER=redis://redis:6379/0
-      - CELERY_BACKEND=redis://redis:6379/0
+      # - CELERY_BROKER=redis://redis:6379/0
+      # - CELERY_BACKEND=redis://redis:6379/0
       - VERIFIER_AUTHORIZATIONS=http://172.20.0.50:7676/authorizations/
       - VERIFIER_PRESENTATIONS=http://172.20.0.50:7676/presentations/
       - VERIFIER_REPORTS=http://172.20.0.50:7676/reports/
-    depends_on:
-      - redis
+    # depends_on:
+    #   - redis
     networks:
       reg:
         ipv4_address: 172.20.0.60
 
-  celery:
-    build:
-      context: ./images
-      dockerfile: server.dockerfile
-    environment:
-      - CELERY_BROKER=redis://redis:6379/0
-      - CELERY_BACKEND=redis://redis:6379/0
-    depends_on:
-      - server
-      - redis
-    networks:
-      - reg
+  # celery:
+  #   build:
+  #     context: ./images
+  #     dockerfile: server.dockerfile
+  #   environment:
+  #     - CELERY_BROKER=redis://redis:6379/0
+  #     - CELERY_BACKEND=redis://redis:6379/0
+  #   depends_on:
+  #     - server
+  #     - redis
+  #   networks:
+  #     - reg
 
-  redis:
-    image: redis:7-alpine
-    networks:
-      - reg
+  # redis:
+  #   image: redis:7-alpine
+  #   networks:
+  #     - reg

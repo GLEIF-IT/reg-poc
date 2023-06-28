@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 WORKDIR /server/src/regps
 ENV KERI_AGENT_CORS=true
 
-ENTRYPOINT [ "gunicorn", "-b", "0.0.0.0:8000", "app:app"]
+ENTRYPOINT [ "gunicorn", "-b", "172.20.0.60:8000", "app:app"]
