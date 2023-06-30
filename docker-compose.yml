@@ -2,9 +2,9 @@ version: '3.8'
 
 networks:
   reg:
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
+    # ipam:
+    #   config:
+    #     - subnet: 172.20.0.0/16
 
 services:
   witnesses:
@@ -19,20 +19,20 @@ services:
       - 5643:5643
       - 5644:5644
     networks:
-      reg:
-        ipv4_address: 172.20.0.10
+      - reg
+        # ipv4_address: 172.20.0.10
     volumes:
       - './data/keri:/usr/local/var/keri/'
 
-  vlei-server:
+  vlei:
     build:
       context: ./images
       dockerfile: vlei.dockerfile
     ports:
       - 7723:7723
     networks:
-      reg:
-        ipv4_address: 172.20.0.20
+      - reg
+        # ipv4_address: 172.20.0.20
 
   keria:
     build:
@@ -45,8 +45,8 @@ services:
     depends_on:
       - witnesses
     networks:
-      reg:
-        ipv4_address: 172.20.0.30
+      - reg
+        # ipv4_address: keria
     volumes:
       - './data/keri:/usr/local/var/keri/'
 
@@ -57,8 +57,8 @@ services:
     ports:
       - 5173:5173
     networks:
-      reg:
-        ipv4_address: 172.20.0.40
+      - reg
+        # ipv4_address: webapp
 
   verifier:
     build:
@@ -69,8 +69,8 @@ services:
     ports:
       - 7676:7676
     networks:
-      reg:
-        ipv4_address: 172.20.0.50
+      - reg
+        # ipv4_address: 172.20.0.50
     volumes:
       - './data/keri:/usr/local/var/keri'
 
@@ -83,14 +83,14 @@ services:
     environment:
       # - CELERY_BROKER=redis://redis:6379/0
       # - CELERY_BACKEND=redis://redis:6379/0
-      - VERIFIER_AUTHORIZATIONS=http://172.20.0.50:7676/authorizations/
-      - VERIFIER_PRESENTATIONS=http://172.20.0.50:7676/presentations/
-      - VERIFIER_REPORTS=http://172.20.0.50:7676/reports/
+      - VERIFIER_AUTHORIZATIONS=http://verifier:7676/authorizations/
+      - VERIFIER_PRESENTATIONS=http://verifier:7676/presentations/
+      - VERIFIER_REPORTS=http://verifier:7676/reports/
     # depends_on:
     #   - redis
     networks:
-      reg:
-        ipv4_address: 172.20.0.60
+      - reg
+        # ipv4_address: 172.20.0.60
 
   # celery:
   #   build:

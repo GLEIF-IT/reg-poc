@@ -9,6 +9,6 @@ docker-compose up --build
 
 
 ### Run
-Navigate to [http://172.20.0.40:5173/](http://172.20.0.40:5173/) in your browser.
+Navigate to [http://webapp:5173/](http://webapp:5173/) in your browser.
 
 Enter the passcode `0123456789abcdefghijk`
