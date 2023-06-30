@@ -2,11 +2,11 @@
   "dt": "2022-01-20T12:57:59.823350+00:00",
   "keria": {
     "dt": "2022-01-20T12:57:59.823350+00:00",
-    "curls": ["http://172.20.0.30:3902/"]
+    "curls": ["http://keria:3902/"]
   },
   "iurls": [
-    "http://172.20.0.10:5642/oobi/BBilc4-L3tFUnfM_wJr4S4OJanAv_VmF_dJNN6vkf2Ha/controller",
-    "http://172.20.0.10:5643/oobi/BLskRTInXnMxWaGqcpSyMgo0nYbalW99cGZESrz3zapM/controller",
-    "http://172.20.0.10:5644/oobi/BIKKuvBwpmDVA4Ds-EpL5bt9OqPzWPja2LigFYZN2YfX/controller"
+    "http://witnesses:5642/oobi/BBilc4-L3tFUnfM_wJr4S4OJanAv_VmF_dJNN6vkf2Ha/controller",
+    "http://witnesses:5643/oobi/BLskRTInXnMxWaGqcpSyMgo0nYbalW99cGZESrz3zapM/controller",
+    "http://witnesses:5644/oobi/BIKKuvBwpmDVA4Ds-EpL5bt9OqPzWPja2LigFYZN2YfX/controller"
   ]
 }
