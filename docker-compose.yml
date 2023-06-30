@@ -6,6 +6,9 @@ networks:
     #   config:
     #     - subnet: 172.20.0.0/16
 
+extra_hosts:
+  - "host.docker.internal:host-gateway"
+
 services:
   witnesses:
     build:
