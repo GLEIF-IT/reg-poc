@@ -6,7 +6,7 @@ RUN apk add git
 SHELL ["/bin/bash", "-c"]
 
 WORKDIR /webapp
-RUN git clone -b development https://github.com/GLEIF-IT/reg-poc-webapp.git .
+RUN git clone -b networking https://github.com/GLEIF-IT/reg-poc-webapp.git .
 
 EXPOSE 5173
 
