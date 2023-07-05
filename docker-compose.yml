@@ -2,12 +2,6 @@ version: '3.8'
 
 networks:
   reg:
-    # ipam:
-    #   config:
-    #     - subnet: 172.20.0.0/16
-
-extra_hosts:
-  - "host.docker.internal:host-gateway"
 
 services:
   witnesses:
@@ -23,7 +17,6 @@ services:
       - 5644:5644
     networks:
       - reg
-        # ipv4_address: 172.20.0.10
     volumes:
       - './data/keri:/usr/local/var/keri/'
 
@@ -35,7 +28,6 @@ services:
       - 7723:7723
     networks:
       - reg
-        # ipv4_address: 172.20.0.20
 
   keria:
     build:
@@ -49,7 +41,6 @@ services:
       - witnesses
     networks:
       - reg
-        # ipv4_address: keria
     volumes:
       - './data/keri:/usr/local/var/keri/'
 
@@ -61,7 +52,6 @@ services:
       - 5173:5173
     networks:
       - reg
-        # ipv4_address: webapp
 
   verifier:
     build:
@@ -73,7 +63,6 @@ services:
       - 7676:7676
     networks:
       - reg
-        # ipv4_address: 172.20.0.50
     volumes:
       - './data/keri:/usr/local/var/keri'
 
@@ -84,31 +73,8 @@ services:
     ports:
       - 8000:8000
     environment:
-      # - CELERY_BROKER=redis://redis:6379/0
-      # - CELERY_BACKEND=redis://redis:6379/0
       - VERIFIER_AUTHORIZATIONS=http://verifier:7676/authorizations/
       - VERIFIER_PRESENTATIONS=http://verifier:7676/presentations/
       - VERIFIER_REPORTS=http://verifier:7676/reports/
-    # depends_on:
-    #   - redis
     networks:
       - reg
-        # ipv4_address: 172.20.0.60
-
-  # celery:
-  #   build:
-  #     context: ./images
-  #     dockerfile: server.dockerfile
-  #   environment:
-  #     - CELERY_BROKER=redis://redis:6379/0
-  #     - CELERY_BACKEND=redis://redis:6379/0
-  #   depends_on:
-  #     - server
-  #     - redis
-  #   networks:
-  #     - reg
-
-  # redis:
-  #   image: redis:7-alpine
-  #   networks:
-  #     - reg
