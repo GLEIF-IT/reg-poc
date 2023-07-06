@@ -9,6 +9,11 @@ docker-compose up --build
 
 
 ### Run
-Navigate to [http://webapp:5173/](http://webapp:5173/) in your browser.
+Navigate to [http://localhost:5173/](http://localhost:5173/) in your browser.
 
-Enter the passcode `0123456789abcdefghijk`
+Enter the passcode `0123456789abcdefghijk`.
+
+
+### Upload
+
+Samples can be found under the `samples/` directory.
