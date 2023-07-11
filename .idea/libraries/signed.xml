@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="signed">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/samples/signed/test_ifgroup2023.zip!/" />
+      <root url="jar://$PROJECT_DIR$/samples/signed/test_ifgroup2022.zip!/" />
+      <root url="jar://$PROJECT_DIR$/samples/signed/test_ifclass3.zip!/" />
+      <root url="jar://$PROJECT_DIR$/samples/signed/test_iftm.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

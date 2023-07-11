@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="failures">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/samples/failures/test_zipWithTextFile.zip!/" />
+      <root url="jar://$PROJECT_DIR$/samples/failures/test_MetaInfReportJson_missingSig.zip!/" />
+      <root url="jar://$PROJECT_DIR$/samples/failures/test_MetaInfReportJson_noSigs.zip!/" />
+      <root url="jar://$PROJECT_DIR$/samples/failures/test_noMetaInfReportJson.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
