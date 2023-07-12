@@ -7,7 +7,7 @@ SHELL ["/bin/bash", "-c"]
 
 WORKDIR /server
 
-RUN git clone -b development https://github.com/GLEIF-IT/reg-poc-server.git .
+RUN git clone -b regdemo https://github.com/GLEIF-IT/reg-poc-server.git .
 
 RUN pip install --no-cache-dir -r requirements.txt
 

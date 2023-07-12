@@ -44,15 +44,6 @@ services:
     volumes:
       - './data/keri:/usr/local/var/keri/'
 
-  webapp:
-    build:
-      context: ./images
-      dockerfile: webapp.dockerfile
-    ports:
-      - 5173:5173
-    networks:
-      - reg
-
   verifier:
     build:
       context: ./images
@@ -66,15 +57,52 @@ services:
     volumes:
       - './data/keri:/usr/local/var/keri'
 
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - reg
+
+  celery:
+    build:
+      context: ./images
+      dockerfile: celery.dockerfile
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+      - VERIFIER_AUTHORIZATIONS=http://verifier:7676/authorizations/
+      - VERIFIER_PRESENTATIONS=http://verifier:7676/presentations/
+      - VERIFIER_REPORTS=http://verifier:7676/reports/
+    networks:
+      - reg
+
   server:
     build:
       context: ./images
       dockerfile: server.dockerfile
     ports:
       - 8000:8000
+    depends_on:
+      - celery
     environment:
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+      - ENABLE_CORS=true
       - VERIFIER_AUTHORIZATIONS=http://verifier:7676/authorizations/
       - VERIFIER_PRESENTATIONS=http://verifier:7676/presentations/
       - VERIFIER_REPORTS=http://verifier:7676/reports/
+    networks:
+      - reg
+
+  webapp:
+    build:
+      context: ./images
+      dockerfile: webapp.dockerfile
+    ports:
+      - 5173:5173
+    # depends_on:
+      # - server
     networks:
       - reg
