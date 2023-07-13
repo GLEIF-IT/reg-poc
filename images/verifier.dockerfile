@@ -15,13 +15,13 @@ RUN apk add git
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 WORKDIR /keripy
-RUN git clone -b development https://github.com/WebOfTrust/keripy.git .
+RUN git clone -b regdemo https://github.com/WebOfTrust/keripy.git .
 RUN source "$HOME/.cargo/env" && pip install -r requirements.txt
 
 RUN mkdir -p /usr/local/var/keri
 
 WORKDIR /verifier
-RUN git clone https://github.com/GLEIF-IT/reg-poc-verifier.git .
+RUN git clone -b regdemo https://github.com/GLEIF-IT/reg-poc-verifier.git .
 RUN pip install -r requirements.txt
 
 WORKDIR /keripy
