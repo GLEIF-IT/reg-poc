@@ -7,11 +7,17 @@ SHELL ["/bin/bash", "-c"]
 
 WORKDIR /webapp
 RUN git clone -b development https://github.com/GLEIF-IT/reg-poc-webapp.git .
-# upgrade yarn to V2
+
+# Upgrade yarn to a newer version to support rebuild
 RUN yarn set version berry
-# rebuild the compiled dependencies.
+
+# Install dependencies without building by source code
+RUN yarn install --mode=skip-build
+
+# Rebuild binaries (to avoid the weird issues on windows)
+# This should be ok for the POC.
 RUN yarn rebuild
-RUN yarn install
+
 
 EXPOSE 5173
 
