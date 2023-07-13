@@ -14,7 +14,7 @@ RUN apk add libsodium-dev
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 WORKDIR /keripy
-RUN git clone -b development https://github.com/WebOfTrust/keripy.git .
+RUN git clone -b regdemo https://github.com/WebOfTrust/keripy.git .
 RUN source "$HOME/.cargo/env" && pip install -r requirements.txt
 
 RUN mkdir -p /keripy/scripts/keri/cf/main

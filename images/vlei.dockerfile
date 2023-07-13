@@ -4,7 +4,7 @@ ENV PYTHONUNBUFFERED=1
 ENV PYTHONIOENCODING=UTF-8
 
 WORKDIR /usr/local/var/
-RUN git clone https://github.com/WebOfTrust/vLEI
+RUN git clone -b regdemo https://github.com/WebOfTrust/vLEI
 
 WORKDIR /usr/local/var/vLEI
 RUN pip install -r requirements.txt

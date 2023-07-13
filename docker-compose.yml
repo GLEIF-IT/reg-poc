@@ -102,7 +102,7 @@ services:
       dockerfile: webapp.dockerfile
     ports:
       - 5173:5173
-    # depends_on:
-      # - server
+    depends_on:
+      - server
     networks:
       - reg
