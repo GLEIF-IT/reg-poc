@@ -14,11 +14,13 @@ RUN apk add git
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 WORKDIR /keripy
-RUN git clone -b regdemo https://github.com/WebOfTrust/keripy.git .
+RUN git clone -b development https://github.com/WebOfTrust/keripy.git .
+RUN git checkout c3a6fc455b5fac194aa9c264e48ea2c52328d4c5
 RUN source "$HOME/.cargo/env" && pip install -r requirements.txt
 
 WORKDIR /keria
-RUN git clone -b regdemo https://github.com/WebOfTrust/keria.git .
+RUN git clone https://github.com/WebOfTrust/keria.git .
+RUN git checkout d3a73741d97c0e9f52f10e01e9d89025aa99f9ff
 RUN pip install -r requirements.txt
 
 WORKDIR /keripy
