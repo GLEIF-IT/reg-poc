@@ -18,7 +18,7 @@ RUN git clone -b regdemo https://github.com/WebOfTrust/keripy.git .
 RUN source "$HOME/.cargo/env" && pip install -r requirements.txt
 
 RUN mkdir -p /keripy/scripts/keri/cf/main
-COPY ./config/witnesses/*.json /keripy/scripts/keri/cf/main/
+# COPY ./config/witnesses/*.json /keripy/scripts/keri/cf/main/
 
 EXPOSE 5632
 EXPOSE 5633

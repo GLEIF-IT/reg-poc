@@ -8,6 +8,7 @@ services:
     build:
       context: ./images
       dockerfile: witnesses.dockerfile
+    image: regpoctest.azurecr.io/witnesses
     ports:
       - 5632:5632
       - 5633:5633
@@ -24,6 +25,7 @@ services:
     build:
       context: ./images
       dockerfile: vlei.dockerfile
+    image: regpoctest.azurecr.io/vlei
     ports:
       - 7723:7723
     networks:
@@ -33,6 +35,7 @@ services:
     build:
       context: ./images
       dockerfile: keria.dockerfile
+    image: regpoctest.azurecr.io/keria
     ports:
       - 3901:3901
       - 3902:3902
@@ -48,6 +51,7 @@ services:
     build:
       context: ./images
       dockerfile: verifier.dockerfile
+    image: regpoctest.azurecr.io/verifier
     depends_on:
       - witnesses
     ports:
@@ -59,7 +63,6 @@ services:
 
   redis:
     image: redis:7-alpine
-    platform: linux/amd64
     networks:
       - reg
 
@@ -67,6 +70,7 @@ services:
     build:
       context: ./images
       dockerfile: celery.dockerfile
+    image: regpoctest.azurecr.io/celery
     depends_on:
       - redis
     environment:
@@ -82,6 +86,7 @@ services:
     build:
       context: ./images
       dockerfile: server.dockerfile
+    image: regpoctest.azurecr.io/server
     ports:
       - 8000:8000
     depends_on:
@@ -100,6 +105,7 @@ services:
     build:
       context: ./images
       dockerfile: webapp.dockerfile
+    image: regpoctest.azurecr.io/webapp
     ports:
       - 5173:5173
     depends_on:
