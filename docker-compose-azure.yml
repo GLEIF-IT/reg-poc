@@ -3,12 +3,21 @@ version: '3.8'
 networks:
   reg:
 
+volumes:
+  data:
+    driver: azure_file
+    driver_opts:
+      share_name: acishare
+      storage_account_name: reppocstorageaccount2
+      storage_account_key: xxxxxx
+
 services:
   witnesses:
     build:
       context: ./images
       dockerfile: witnesses.dockerfile
     image: regpoctest.azurecr.io/witnesses
+    platform: linux/amd64
     ports:
       - 5632:5632
       - 5633:5633
@@ -19,96 +28,103 @@ services:
     networks:
       - reg
     volumes:
-      - './data/keri:/usr/local/var/keri/'
+      - 'acishare/data/keri:/usr/local/var/keri/'
 
-  vlei:
-    build:
-      context: ./images
-      dockerfile: vlei.dockerfile
-    image: regpoctest.azurecr.io/vlei
-    ports:
-      - 7723:7723
-    networks:
-      - reg
+  # vlei:
+  #   build:
+  #     context: ./images
+  #     dockerfile: vlei.dockerfile
+  #   image: regpoctest.azurecr.io/vlei
+  #   platform: linux/amd64
+  #   ports:
+  #     - 7723:7723
+  #   networks:
+  #     - reg
 
-  keria:
-    build:
-      context: ./images
-      dockerfile: keria.dockerfile
-    image: regpoctest.azurecr.io/keria
-    ports:
-      - 3901:3901
-      - 3902:3902
-      - 3903:3903
-    depends_on:
-      - witnesses
-    networks:
-      - reg
-    volumes:
-      - './data/keri:/usr/local/var/keri/'
+  # keria:
+  #   build:
+  #     context: ./images
+  #     dockerfile: keria.dockerfile
+  #   image: regpoctest.azurecr.io/keria
+  #   platform: linux/amd64
+  #   ports:
+  #     - 3901:3901
+  #     - 3902:3902
+  #     - 3903:3903
+  #   depends_on:
+  #     - witnesses
+  #   networks:
+  #     - reg
+  #   volumes:
+  #     - '/data/keri:/usr/local/var/keri/'
 
-  verifier:
-    build:
-      context: ./images
-      dockerfile: verifier.dockerfile
-    image: regpoctest.azurecr.io/verifier
-    depends_on:
-      - witnesses
-    ports:
-      - 7676:7676
-    networks:
-      - reg
-    volumes:
-      - './data/keri:/usr/local/var/keri'
+  # verifier:
+  #   build:
+  #     context: ./images
+  #     dockerfile: verifier.dockerfile
+  #   image: regpoctest.azurecr.io/verifier
+  #   platform: linux/amd64
+  #   depends_on:
+  #     - witnesses
+  #   ports:
+  #     - 7676:7676
+  #   networks:
+  #     - reg
+  #   volumes:
+  #     - '/data/keri:/usr/local/var/keri'
 
   redis:
     image: redis:7-alpine
+    platform: linux/amd64
     networks:
       - reg
 
-  celery:
-    build:
-      context: ./images
-      dockerfile: celery.dockerfile
-    image: regpoctest.azurecr.io/celery
-    depends_on:
-      - redis
-    environment:
-      - CELERY_BROKER=redis://redis:6379/0
-      - CELERY_BACKEND=redis://redis:6379/0
-      - VERIFIER_AUTHORIZATIONS=http://verifier:7676/authorizations/
-      - VERIFIER_PRESENTATIONS=http://verifier:7676/presentations/
-      - VERIFIER_REPORTS=http://verifier:7676/reports/
-    networks:
-      - reg
+  # celery:
+  #   build:
+  #     context: ./images
+  #     dockerfile: celery.dockerfile
+  #   image: regpoctest.azurecr.io/celery
+  #   platform: linux/amd64
+  #   depends_on:
+  #     - redis
+  #   environment:
+  #     - CELERY_BROKER=redis://redis:6379/0
+  #     - CELERY_BACKEND=redis://redis:6379/0
+  #     - VERIFIER_AUTHORIZATIONS=http://verifier:7676/authorizations/
+  #     - VERIFIER_PRESENTATIONS=http://verifier:7676/presentations/
+  #     - VERIFIER_REPORTS=http://verifier:7676/reports/
+  #   networks:
+  #     - reg
 
-  server:
-    build:
-      context: ./images
-      dockerfile: server.dockerfile
-    image: regpoctest.azurecr.io/server
-    ports:
-      - 8000:8000
-    depends_on:
-      - celery
-    environment:
-      - CELERY_BROKER=redis://redis:6379/0
-      - CELERY_BACKEND=redis://redis:6379/0
-      - ENABLE_CORS=true
-      - VERIFIER_AUTHORIZATIONS=http://verifier:7676/authorizations/
-      - VERIFIER_PRESENTATIONS=http://verifier:7676/presentations/
-      - VERIFIER_REPORTS=http://verifier:7676/reports/
-    networks:
-      - reg
+  # server:
+  #   build:
+  #     context: ./images
+  #     dockerfile: server.dockerfile
+  #   image: regpoctest.azurecr.io/server
+  #   platform: linux/amd64
+  #   ports:
+  #     - 8000:8000
+  #   depends_on:
+  #     - celery
+  #   environment:
+  #     - CELERY_BROKER=redis://redis:6379/0
+  #     - CELERY_BACKEND=redis://redis:6379/0
+  #     - ENABLE_CORS=true
+  #     - VERIFIER_AUTHORIZATIONS=http://verifier:7676/authorizations/
+  #     - VERIFIER_PRESENTATIONS=http://verifier:7676/presentations/
+  #     - VERIFIER_REPORTS=http://verifier:7676/reports/
+  #   networks:
+  #     - reg
 
-  webapp:
-    build:
-      context: ./images
-      dockerfile: webapp.dockerfile
-    image: regpoctest.azurecr.io/webapp
-    ports:
-      - 5173:5173
-    depends_on:
-      - server
-    networks:
-      - reg
+  # webapp:
+  #   build:
+  #     context: ./images
+  #     dockerfile: webapp.dockerfile
+  #   image: regpoctest.azurecr.io/webapp
+  #   platform: linux/amd64
+  #   ports:
+  #     - 5173:5173
+  #   depends_on:
+  #     - server
+  #   networks:
+  #     - reg
