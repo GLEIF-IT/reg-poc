@@ -6,7 +6,8 @@ RUN apk add git
 SHELL ["/bin/bash", "-c"]
 
 WORKDIR /webapp
-RUN git clone -b feat/windows https://github.com/GLEIF-IT/reg-poc-webapp.git .
+RUN git clone https://github.com/GLEIF-IT/reg-poc-webapp.git .
+RUN git checkout 4185296affb2348d19af6009be04f682a3e19360
 
 # Upgrade yarn to a newer version to support rebuild
 RUN yarn set version berry

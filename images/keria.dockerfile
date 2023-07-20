@@ -15,12 +15,12 @@ RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 WORKDIR /keripy
 RUN git clone -b development https://github.com/WebOfTrust/keripy.git .
-RUN git checkout c3a6fc455b5fac194aa9c264e48ea2c52328d4c5
+RUN git checkout 4185296affb2348d19af6009be04f682a3e19360
 RUN source "$HOME/.cargo/env" && pip install -r requirements.txt
 
 WORKDIR /keria
 RUN git clone https://github.com/WebOfTrust/keria.git .
-RUN git checkout d3a73741d97c0e9f52f10e01e9d89025aa99f9ff
+RUN git checkout afa1c9be486d40e21811692ea9aeb9d8bb84e014
 RUN pip install -r requirements.txt
 
 WORKDIR /keripy

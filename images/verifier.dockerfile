@@ -16,13 +16,14 @@ RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 WORKDIR /keripy
 RUN git clone -b development https://github.com/WebOfTrust/keripy.git .
-RUN git checkout c3a6fc455b5fac194aa9c264e48ea2c52328d4c5
+RUN git checkout 4185296affb2348d19af6009be04f682a3e19360
 RUN source "$HOME/.cargo/env" && pip install -r requirements.txt
 
 RUN mkdir -p /usr/local/var/keri
 
 WORKDIR /verifier
-RUN git clone -b feat/windows https://github.com/GLEIF-IT/reg-poc-verifier.git .
+RUN git clone https://github.com/GLEIF-IT/reg-poc-verifier.git .
+RUN git checkout 0f42eb59d450ab947c28f7c15b04ac38b9bcb0f3
 RUN pip install -r requirements.txt
 
 WORKDIR /keripy
