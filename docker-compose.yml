@@ -30,7 +30,7 @@ services:
 
   vlei:
     build:
-      dockerfile: https://github.com/tibor19/vlei.git#dockerfile
+      context: https://github.com/tibor19/vlei.git#dockerfile
     ports:
       - 7723:7723
     networks:
