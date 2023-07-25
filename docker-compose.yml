@@ -28,12 +28,13 @@ services:
 
   vlei:
     build:
-      context: ./images
-      dockerfile: vlei.dockerfile
+      dockerfile: https://github.com/tibor19/vlei.git#dockerfile
     ports:
       - 7723:7723
     networks:
       - reg
+    volumes:
+      - './images/config/vlei/samples/oobis:/usr/local/var/vLEI/samples/oobis/:ro'
 
   keria:
     build:
@@ -50,6 +51,7 @@ services:
     volumes:
       - './data/keri:/usr/local/var/keri/'
       - './images/config/keria/scripts/keri/cf:/keria/scripts/keri/cf/:ro'
+
   verifier:
     build:
       context: https://github.com/tibor19/reg-poc-verifier.git#dockerfile

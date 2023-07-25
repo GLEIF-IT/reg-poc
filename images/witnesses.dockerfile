@@ -1,6 +1,8 @@
 
 FROM build-keripy
 
+WORKDIR /keripy
+
 EXPOSE 5632
 EXPOSE 5633
 EXPOSE 5634
