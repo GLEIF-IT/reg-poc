@@ -4,6 +4,11 @@ networks:
   reg:
 
 services:
+  build-keipy:
+    build: 
+      context: https://github.com/tibor19/kerpy.git#dockerfile
+      image: build-keipy
+
   witnesses:
     build:
       context: ./images
@@ -31,14 +36,14 @@ services:
 
   keria:
     build:
-      context: ./images
-      dockerfile: keria.dockerfile
+      context: https://github.com/tibor19/keria.git#dockerfile
     ports:
       - 3901:3901
       - 3902:3902
       - 3903:3903
     depends_on:
       - witnesses
+      - build-keipy
     networks:
       - reg
     volumes:
