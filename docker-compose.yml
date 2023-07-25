@@ -96,9 +96,7 @@ services:
       - reg
 
   webapp:
-    build:
-      context: ./images
-      dockerfile: webapp.dockerfile
+    build: https://github.com/tibor19/reg-poc-webapp.git#dockerfile
     ports:
       - 5173:5173
     depends_on:
