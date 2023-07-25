@@ -63,8 +63,8 @@ services:
       - reg
 
   celery:
-    build:
-      context: ./images
+    build: 
+      context: https://github.com/tibor19/reg-poc-server.git#dockerfile
       dockerfile: celery.dockerfile
     depends_on:
       - redis
@@ -79,8 +79,8 @@ services:
 
   server:
     build:
-      context: ./images
-      dockerfile: server.dockerfile
+      context: https://github.com/tibor19/reg-poc-server.git#dockerfile
+      dockerfile: server.Dockerfile
     ports:
       - 8000:8000
     depends_on:
