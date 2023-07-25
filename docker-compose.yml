@@ -7,7 +7,7 @@ services:
   build-keipy:
     build: 
       context: https://github.com/tibor19/kerpy.git#dockerfile
-      image: build-keipy
+    image: build-keipy
 
   witnesses:
     build:
