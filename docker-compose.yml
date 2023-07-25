@@ -8,6 +8,8 @@ services:
     build: 
       context: https://github.com/tibor19/keripy.git#dockerfile
     image: build-keripy
+    networks:
+      - reg
 
   witnesses:
     build:
