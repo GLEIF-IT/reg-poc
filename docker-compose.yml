@@ -51,10 +51,10 @@ services:
 
   verifier:
     build:
-      context: ./images
-      dockerfile: verifier.dockerfile
+      context: https://github.com/tibor19/reg-poc-verifier.git#dockerfile
     depends_on:
       - witnesses
+      - build-keripy
     ports:
       - 7676:7676
     networks:
