@@ -4,10 +4,10 @@ networks:
   reg:
 
 services:
-  build-keipy:
+  build-keripy:
     build: 
-      context: https://github.com/tibor19/kerpy.git#dockerfile
-    image: build-keipy
+      context: https://github.com/tibor19/keripy.git#dockerfile
+    image: build-keripy
 
   witnesses:
     build:
@@ -43,7 +43,7 @@ services:
       - 3903:3903
     depends_on:
       - witnesses
-      - build-keipy
+      - build-keripy
     networks:
       - reg
     volumes:
