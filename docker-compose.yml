@@ -65,7 +65,7 @@ services:
   celery:
     build: 
       context: https://github.com/tibor19/reg-poc-server.git#dockerfile
-      dockerfile: celery.dockerfile
+      dockerfile: celery.Dockerfile
     depends_on:
       - redis
     environment:
