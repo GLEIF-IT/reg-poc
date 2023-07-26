@@ -4,17 +4,10 @@ networks:
   reg:
 
 services:
-  build-keripy:
-    build: 
-      context: https://github.com/tibor19/keripy.git#dockerfile
-    image: build-keripy
-    networks:
-      - reg
 
   witnesses:
-    build:
-      context: ./images
-      dockerfile: witnesses.dockerfile
+    build: 
+      context: https://github.com/tibor19/keripy.git#dockerfile
     ports:
       - 5632:5632
       - 5633:5633
@@ -22,6 +15,7 @@ services:
       - 5642:5642
       - 5643:5643
       - 5644:5644
+    image: keripy
     networks:
       - reg
     volumes:
@@ -41,13 +35,14 @@ services:
   keria:
     build:
       context: https://github.com/tibor19/keria.git#dockerfile
+      args:
+        - BASE_IMAGE=keripy
     ports:
       - 3901:3901
       - 3902:3902
       - 3903:3903
     depends_on:
       - witnesses
-      - build-keripy
     networks:
       - reg
     volumes:
@@ -57,9 +52,10 @@ services:
   verifier:
     build:
       context: https://github.com/tibor19/reg-poc-verifier.git#dockerfile
+      args:
+        - BASE_IMAGE=keripy
     depends_on:
       - witnesses
-      - build-keripy
     ports:
       - 7676:7676
     networks:
