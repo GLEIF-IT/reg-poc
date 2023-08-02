@@ -7,8 +7,7 @@ SHELL ["/bin/bash", "-c"]
 
 WORKDIR /webapp
 RUN git clone https://github.com/GLEIF-IT/reg-poc-webapp.git .
-RUN git fetch --all --tags
-RUN git checkout 96880bc7d230b2bf1c8f83340c2e11af95b9ac25
+RUN git checkout ce79f8565aed596d0a70a554c58612ce5ec31a8b
 
 # Upgrade yarn to a newer version to support rebuild
 RUN yarn set version berry

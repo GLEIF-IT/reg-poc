@@ -24,9 +24,7 @@ RUN mkdir -p /usr/local/var/keri
 
 WORKDIR /verifier
 RUN git clone https://github.com/GLEIF-IT/reg-poc-verifier.git .
-RUN git fetch --all --tags
-RUN git checkout fix/verification
-RUN git pull
+RUN git checkout 56f21caeaedfac0281b5b9e0dca2d06a3acb841f
 
 RUN pip install -r requirements.txt
 
