@@ -20,7 +20,7 @@ services:
       - reg
     volumes:
       - './data/keri:/usr/local/var/keri/'
-      - './images/config/witnesses:/keripy/scripts/keri/cf/main/:ro'
+      - './images/config/witnesses:/keripy/scripts/keri/cf/main/'
 
   vlei:
     build:
@@ -30,7 +30,7 @@ services:
     networks:
       - reg
     volumes:
-      - './images/config/vlei/samples/oobis:/usr/local/var/vLEI/samples/oobis/:ro'
+      - './images/config/vlei/samples/oobis:/usr/local/var/vLEI/samples/oobis/'
 
   keria:
     build:
@@ -47,7 +47,7 @@ services:
       - reg
     volumes:
       - './data/keri:/usr/local/var/keri/'
-      - './images/config/keria/scripts/keri/cf:/keria/scripts/keri/cf/:ro'
+      - './images/config/keria/scripts/keri/cf:/keria/scripts/keri/cf/'
 
   verifier:
     build:
@@ -62,7 +62,7 @@ services:
       - reg
     volumes:
       - './data/keri:/usr/local/var/keri'
-      - './images/config/verifier:/verifier/scripts/keri/cf/:ro'
+      - './images/config/verifier:/verifier/scripts/keri/cf/'
 
   redis:
     image: redis:7-alpine
