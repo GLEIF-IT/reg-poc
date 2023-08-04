@@ -64,6 +64,11 @@ services:
       - './data/keri:/usr/local/var/keri'
       - './images/config/verifier:/verifier/scripts/keri/cf/'
 
+  redis:
+    image: redis:7-alpine
+    networks:
+      - reg
+
   celery:
     build: 
       context: https://github.com/tibor19/reg-poc-server.git#dockerfile
