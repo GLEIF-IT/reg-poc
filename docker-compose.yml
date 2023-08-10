@@ -4,10 +4,10 @@ networks:
   reg:
 
 services:
+
   witnesses:
-    build:
-      context: ./images
-      dockerfile: witnesses.dockerfile
+    build: 
+      context: https://github.com/tibor19/keripy.git#dockerfile
     ports:
       - 5632:5632
       - 5633:5633
@@ -15,24 +15,28 @@ services:
       - 5642:5642
       - 5643:5643
       - 5644:5644
+    image: keripy
     networks:
       - reg
     volumes:
       - './data/keri:/usr/local/var/keri/'
+      - './images/config/witnesses:/keripy/scripts/keri/cf/main/'
 
   vlei:
     build:
-      context: ./images
-      dockerfile: vlei.dockerfile
+      context: https://github.com/tibor19/vlei.git#dockerfile
     ports:
       - 7723:7723
     networks:
       - reg
+    volumes:
+      - './images/config/vlei/samples/oobis:/usr/local/var/vLEI/samples/oobis/'
 
   keria:
     build:
-      context: ./images
-      dockerfile: keria.dockerfile
+      context: https://github.com/tibor19/keria.git#dockerfile
+      args:
+        - BASE_IMAGE=keripy
     ports:
       - 3901:3901
       - 3902:3902
@@ -43,11 +47,13 @@ services:
       - reg
     volumes:
       - './data/keri:/usr/local/var/keri/'
+      - './images/config/keria/scripts/keri/cf:/keria/scripts/keri/cf/'
 
   verifier:
     build:
-      context: ./images
-      dockerfile: verifier.dockerfile
+      context: https://github.com/tibor19/reg-poc-verifier.git#dockerfile
+      args:
+        - BASE_IMAGE=keripy
     depends_on:
       - witnesses
     ports:
@@ -56,11 +62,32 @@ services:
       - reg
     volumes:
       - './data/keri:/usr/local/var/keri'
+      - './images/config/verifier:/verifier/scripts/keri/cf/'
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - reg
+
+  celery:
+    build: 
+      context: https://github.com/tibor19/reg-poc-server.git#dockerfile
+      dockerfile: celery.Dockerfile
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+      - VERIFIER_AUTHORIZATIONS=http://verifier:7676/authorizations/
+      - VERIFIER_PRESENTATIONS=http://verifier:7676/presentations/
+      - VERIFIER_REPORTS=http://verifier:7676/reports/
+    networks:
+      - reg
 
   server:
     build:
-      context: ./images
-      dockerfile: server.dockerfile
+      context: https://github.com/tibor19/reg-poc-server.git#dockerfile
+      dockerfile: server.Dockerfile
     ports:
       - 8000:8000
     depends_on:
@@ -75,9 +102,8 @@ services:
       - reg
 
   webapp:
-    build:
-      context: ./images
-      dockerfile: webapp.dockerfile
+    build: 
+      context: https://github.com/tibor19/reg-poc-webapp.git#dockerfile
     ports:
       - 5173:5173
     depends_on:
