@@ -5,7 +5,9 @@ networks:
 
 services:
   witnesses:
-    image: gleif/reg-poc-witnesses:0.1.0
+    build:
+      context: ./images
+      dockerfile: witnesses.dockerfile
     ports:
       - 5632:5632
       - 5633:5633
@@ -17,14 +19,18 @@ services:
       - reg
 
   vlei:
-    image: gleif/reg-poc-vlei:0.1.0
+    build:
+      context: ./images
+      dockerfile: vlei.dockerfile
     ports:
       - 7723:7723
     networks:
       - reg
 
   keria:
-    image: gleif/reg-poc-keria:0.1.0
+    build:
+      context: ./images
+      dockerfile: keria.dockerfile
     ports:
       - 3901:3901
       - 3902:3902
@@ -35,14 +41,18 @@ services:
       - reg
 
   webapp:
-    image: gleif/reg-poc-webapp:0.1.0
+    build:
+      context: ./images
+      dockerfile: webapp.dockerfile
     ports:
       - 5173:5173
     networks:
       - reg
 
   verifier:
-    image: gleif/reg-poc-verifier:0.1.0
+    build:
+      context: ./images
+      dockerfile: verifier.dockerfile
     depends_on:
       - witnesses
     ports:
@@ -51,7 +61,9 @@ services:
       - reg
 
   server:
-    image: gleif/reg-poc-server:0.1.0
+    build:
+      context: ./images
+      dockerfile: server.dockerfile
     ports:
       - 8000:8000
     environment:

@@ -14,13 +14,13 @@ RUN apk add libsodium-dev
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 WORKDIR /keripy
-RUN git clone -b development https://github.com/WebOfTrust/keripy.git .
-RUN git checkout 4185296affb2348d19af6009be04f682a3e19360
-
+RUN git clone -b reg-poc-demo https://github.com/WebOfTrust/keripy.git .
 RUN source "$HOME/.cargo/env" && pip install -r requirements.txt
 
 RUN mkdir -p /keripy/scripts/keri/cf/main
 COPY ./config/witnesses/*.json /keripy/scripts/keri/cf/main/
+RUN mkdir -p /usr/local/var/keri
+COPY ./data/keri /usr/local/var/keri/
 
 EXPOSE 5632
 EXPOSE 5633

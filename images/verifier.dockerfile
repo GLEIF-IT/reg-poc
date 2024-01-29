@@ -15,17 +15,13 @@ RUN apk add git
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 WORKDIR /keripy
-RUN git clone -b development https://github.com/WebOfTrust/keripy.git .
-RUN git checkout 4185296affb2348d19af6009be04f682a3e19360
-
+RUN git clone -b reg-poc-demo https://github.com/WebOfTrust/keripy.git .
 RUN source "$HOME/.cargo/env" && pip install -r requirements.txt
 
 RUN mkdir -p /usr/local/var/keri
 
 WORKDIR /verifier
-RUN git clone https://github.com/GLEIF-IT/reg-poc-verifier.git .
-RUN git checkout 56f21caeaedfac0281b5b9e0dca2d06a3acb841f
-
+RUN git clone -b main https://github.com/GLEIF-IT/reg-poc-verifier.git .
 RUN pip install -r requirements.txt
 
 WORKDIR /keripy
@@ -35,5 +31,7 @@ WORKDIR /verifier
 RUN mkdir -p /verifier/scripts/keri/cf/
 
 COPY ./config/verifier/verifier-config.json /verifier/scripts/keri/cf/verifier-config.json
+RUN mkdir -p /usr/local/var/keri
+COPY ./data/keri /usr/local/var/keri/
 
 ENTRYPOINT ["verifier", "server", "start", "--config-dir", "scripts", "--config-file", "verifier-config.json"]

@@ -14,15 +14,11 @@ RUN apk add git
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y
 
 WORKDIR /keripy
-RUN git clone -b development https://github.com/WebOfTrust/keripy.git .
-RUN git checkout 4185296affb2348d19af6009be04f682a3e19360
-
+RUN git clone -b reg-poc-demo https://github.com/WebOfTrust/keripy.git .
 RUN source "$HOME/.cargo/env" && pip install -r requirements.txt
 
 WORKDIR /keria
-RUN git clone https://github.com/WebOfTrust/keria.git .
-RUN git checkout afa1c9be486d40e21811692ea9aeb9d8bb84e014
-
+RUN git clone -b reg-poc-demo https://github.com/WebOfTrust/keria.git .
 RUN pip install -r requirements.txt
 
 WORKDIR /keripy
@@ -31,6 +27,8 @@ RUN pip install -e .
 WORKDIR /keria
 RUN mkdir -p /keria/scripts/keri/cf
 COPY ./config/keria/scripts/keri/cf/demo-witness-oobis.json /keria/scripts/keri/cf/demo-witness-oobis.json
+RUN mkdir -p /usr/local/var/keri
+COPY ./data/keri /usr/local/var/keri/
 
 EXPOSE 3901
 EXPOSE 3902
@@ -39,3 +37,5 @@ EXPOSE 3903
 ENV KERI_AGENT_CORS=true
 
 ENTRYPOINT ["keria", "start",  "--config-file", "demo-witness-oobis", "--config-dir", "./scripts"]
+
+
